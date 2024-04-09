@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { TextAnalyzerService } from 'app/service/text-analyzer.service';
 
 @Component({
   selector: 'app-form',
@@ -38,6 +39,8 @@ export class FormComponent {
     offlineMode: new FormControl(false)
   });
 
+  analyzer: TextAnalyzerService = inject(TextAnalyzerService);
+
   constructor() {
     this.analysisForm.controls['methodInput'].setValue(this.default, {onlySelf: true});
   }
@@ -48,6 +51,8 @@ export class FormComponent {
     Text: ${this.analysisForm.value.textInput ?? ''}, 
     offlineMode: ${this.analysisForm.value.offlineMode ?? false},
     Method: ${this.analysisForm.value.methodInput ?? ''}`);
+
+    
   }
 
 }
