@@ -14,7 +14,7 @@ import static com.tobias.textAnalyzer.data.CharacterTypeDefinition.DEFINITION_GE
 
 class GermanUmlautValidatorTest {
 
-    private final ConsonantValidator validator = new ConsonantValidator();
+    private final GermanUmlautValidator validator = new GermanUmlautValidator();
     private static final Field[] fields = CharacterTypeDefinition.class.getDeclaredFields();
     private static final String[] NOT_GERMAN_UMLAUTE = Stream.of(fields)
             .filter(field -> !field.getName().equals("DEFINITION_GERMAN_UMLAUT"))
@@ -38,7 +38,7 @@ class GermanUmlautValidatorTest {
 
     @ParameterizedTest
     @MethodSource("german_umlaute")
-    void validateConsonants(String input) {
+    void validateGermanUmlaute(String input) {
         boolean resultUpperCase = validator.validate(input);
         boolean resultLowerCase = validator.validate(input.toLowerCase());
         Assertions.assertTrue(resultUpperCase);
@@ -47,7 +47,7 @@ class GermanUmlautValidatorTest {
 
     @ParameterizedTest
     @MethodSource("not_german_umlaute")
-    void validateNotConsonants(String input) {
+    void validateNotGermanUmlaute(String input) {
         boolean resultUpperCase = validator.validate(input);
         boolean resultLowerCase = validator.validate(input.toLowerCase());
         Assertions.assertFalse(resultUpperCase);

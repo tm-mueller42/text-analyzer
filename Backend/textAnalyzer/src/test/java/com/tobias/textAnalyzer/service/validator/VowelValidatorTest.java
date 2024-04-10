@@ -14,7 +14,7 @@ import static com.tobias.textAnalyzer.data.CharacterTypeDefinition.DEFINITION_VO
 
 class VowelValidatorTest {
 
-    private final ConsonantValidator validator = new ConsonantValidator();
+    private final VowelValidator validator = new VowelValidator();
     private static final Field[] fields = CharacterTypeDefinition.class.getDeclaredFields();
     private static final String[] NOT_VOWELS = Stream.of(fields)
             .filter(field -> !field.getName().equals("DEFINITION_VOWEL"))
@@ -38,7 +38,7 @@ class VowelValidatorTest {
 
     @ParameterizedTest
     @MethodSource("vowels")
-    void validateConsonants(String input) {
+    void validateVowels(String input) {
         boolean resultUpperCase = validator.validate(input);
         boolean resultLowerCase = validator.validate(input.toLowerCase());
         Assertions.assertTrue(resultUpperCase);
@@ -47,7 +47,7 @@ class VowelValidatorTest {
 
     @ParameterizedTest
     @MethodSource("not_vowels")
-    void validateNotConsonants(String input) {
+    void validateNotVowels(String input) {
         boolean resultUpperCase = validator.validate(input);
         boolean resultLowerCase = validator.validate(input.toLowerCase());
         Assertions.assertFalse(resultUpperCase);

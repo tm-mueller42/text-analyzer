@@ -1,13 +1,15 @@
 package com.tobias.textAnalyzer.api.controller;
 
 import com.tobias.textAnalyzer.api.exception.BadRequestException;
-import com.tobias.textAnalyzer.data.TextDTO;
+import com.tobias.textAnalyzer.data.RequestDTO;
+import com.tobias.textAnalyzer.data.ResultDTO;
 import com.tobias.textAnalyzer.service.validator.CharacterValidator;
 import com.tobias.textAnalyzer.service.TextAnalyzer;
 import com.tobias.textAnalyzer.service.ValidatorService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLOutput;
 import java.util.HashMap;
 
 @RestController
@@ -20,7 +22,7 @@ public class TextAnalyzerEndpoint {
     private final ValidatorService validatorService;
 
     @PostMapping
-    HashMap<String, Integer> analyzeText(@RequestBody TextDTO request) throws BadRequestException {
+    ResultDTO[] analyzeText(@RequestBody RequestDTO request) throws BadRequestException {
         CharacterValidator validator = validatorService.provideValidator(request.getCharacterType())
                 .orElseThrow(BadRequestException::new);
         return textAnalyzer.analyzeText(request.getText(), validator);

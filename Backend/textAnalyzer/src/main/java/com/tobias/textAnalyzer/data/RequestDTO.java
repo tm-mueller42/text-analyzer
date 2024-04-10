@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class TextDTO {
-    public String text;
-    public CharacterType characterType;
+public class RequestDTO {
+    private String text;
+    private CharacterType characterType;
 }

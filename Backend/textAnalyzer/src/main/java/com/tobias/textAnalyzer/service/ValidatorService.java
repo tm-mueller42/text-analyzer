@@ -17,7 +17,7 @@ public class ValidatorService {
 
     public Optional<CharacterValidator> provideValidator(CharacterType characterType) {
         return validators.stream()
-                .filter(currentValidator -> currentValidator.getCaracterType().equals(characterType))
+                .filter(currentValidator -> currentValidator.getCaracterType() == characterType)
                 .findFirst();
     }
 }

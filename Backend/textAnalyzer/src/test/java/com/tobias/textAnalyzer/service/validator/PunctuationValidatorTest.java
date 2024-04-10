@@ -14,7 +14,7 @@ import static com.tobias.textAnalyzer.data.CharacterTypeDefinition.DEFINITION_PU
 
 class PunctuationValidatorTest {
 
-    private final ConsonantValidator validator = new ConsonantValidator();
+    private final PunctuationValidator validator = new PunctuationValidator();
     private static final Field[] fields = CharacterTypeDefinition.class.getDeclaredFields();
     private static final String[] NOT_PUNCTUATIONS = Stream.of(fields)
             .filter(field -> !field.getName().equals("DEFINITION_PUNCTUATION"))
@@ -38,7 +38,7 @@ class PunctuationValidatorTest {
 
     @ParameterizedTest
     @MethodSource("punctuations")
-    void validateConsonants(String input) {
+    void validatePunctuation(String input) {
         boolean resultUpperCase = validator.validate(input);
         boolean resultLowerCase = validator.validate(input.toLowerCase());
         Assertions.assertTrue(resultUpperCase);
@@ -47,7 +47,7 @@ class PunctuationValidatorTest {
 
     @ParameterizedTest
     @MethodSource("not_punctuations")
-    void validateNotConsonants(String input) {
+    void validateNotPunctuation(String input) {
         boolean resultUpperCase = validator.validate(input);
         boolean resultLowerCase = validator.validate(input.toLowerCase());
         Assertions.assertFalse(resultUpperCase);
