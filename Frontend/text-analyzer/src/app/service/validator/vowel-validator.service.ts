@@ -10,7 +10,7 @@ export class VowelValidatorService implements CharacterValidator{
   characterTypeDefinition: string;
 
   constructor() {
-    this.characterType = "vowel";
+    this.characterType = "VOWEL";
     this.characterTypeDefinition = "AEIOU";
    }
 

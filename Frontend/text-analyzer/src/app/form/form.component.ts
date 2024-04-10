@@ -17,7 +17,7 @@ import { AnalysisRequest } from 'app/analysis-request';
   ],
   template: `
     <section>
-      <form [formGroup]="analysisForm" (submit)="submitApplication()">
+      <form [formGroup]="analysisForm" (submit)="submitDataForAnalysis()">
         <input type="text" placeholder="Please enter your text" formControlName="textInput">
         <button class="primary">Submit</button>
         <label>select character type
@@ -35,7 +35,7 @@ import { AnalysisRequest } from 'app/analysis-request';
     </section>
     <section>
       <app-result
-        *ngFor="let currentResult of results" [result] = "currentResult">
+        *ngFor="let currentResult of analysisResults" [result] = "currentResult">
       </app-result>
     </section>
   `,
@@ -53,36 +53,24 @@ export class FormComponent {
 
   analyzer: TextAnalyzerService = inject(TextAnalyzerService);
   apiService: ApiService = inject(ApiService);
+  analysisResults: Result[] = [];
 
-  analysisResult: Map<string, number> = new Map<string, number>;
+  submitDataForAnalysis() {
+    const analysisRequest: AnalysisRequest = {
+      text: this.analysisForm.value.textInput ?? "", characterType: this.analysisForm.value.methodInput ?? "VOWEL"
+    };
 
-  results: Result[] = [];
+    if (!this.analysisForm.value.offlineMode) {
+      this.apiService.getAnalysisResults(analysisRequest).then((fetchedResults: Result[]) => {
+        this.analysisResults = fetchedResults ?? [];
+      });
+    }
+    else if (this.analysisForm.value.offlineMode) {
+      this.analysisResults = this.analyzer.analyze(analysisRequest);
+    }
+  }
 
   constructor() {
     this.analysisForm.controls['methodInput'].setValue(this.default, {onlySelf: true});
   }
-
-  submitApplication() {
-
-
-    this.analyzer.characterType = "CONSONANT";
-    const analysisRequest: AnalysisRequest = {text: this.analysisForm.value.textInput ?? "", characterType: this.analysisForm.value.methodInput ?? "vowel"};
-
-    if (!this.analysisForm.value.offlineMode) {
-      console.log(analysisRequest);
-      this.apiService.getAnalysisResults(analysisRequest).then((fetchedResults: Result[]) => {
-        console.log(fetchedResults);
-        this.results = fetchedResults ?? [];
-      });
-    }
-
-    else if (this.analysisForm.value.offlineMode) {
-      this.analysisResult = this.analyzer.analyze(this.analysisForm.value.textInput ?? "", this.analysisForm.value.methodInput ?? "VOWEL");
-      for (const key of this.analysisResult.keys()) {
-        this.results.push({character:key, count: this.analysisResult.get(key) ?? 0})
-        console.log("The character '", key, "' appears ", this.analysisResult.get(key), " times in this text.");
-      }
-    }
-  }
-
 }

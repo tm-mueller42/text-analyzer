@@ -1,31 +1,30 @@
 import { Injectable, inject } from '@angular/core';
 import { CharacterValidator } from './validator/character-validator';
 import { ValidatorService } from './validator-service.service';
-import { VowelValidatorService } from './validator/vowel-validator.service';
+import { Result } from 'app/result';
+import { AnalysisRequest } from 'app/analysis-request';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TextAnalyzerService {
 
-  characterType: string = "consonant";
   validatorService: ValidatorService = inject(ValidatorService);
 
   constructor() { }
 
-  analyze(text: string, characterType: string) {
-    this.characterType = characterType;
-    const validator: CharacterValidator = this.validatorService.provideValidator(characterType);
-    const characters: string[] = text.split("");
-    let analysisResult = new Map<string, number>();
+  analyze(analysisRequest: AnalysisRequest) {
+    const validator: CharacterValidator = this.validatorService.provideValidator(analysisRequest.characterType);
+    const characters: string[] = analysisRequest.text.split("");
+    let analysisResult2: Result[] = [];
     for (let character of characters) {
       character = character.toUpperCase();
       if (character.length === 1 && validator.validate(character)) {
-        const currentValue: number = analysisResult.get(character)?? 0;
-        analysisResult.set(character, currentValue+1) 
+        analysisResult2.find(result => result.character === character) ? 
+        analysisResult2.find(result => result.character === character)!.count++ :
+        analysisResult2.push({character: character, count: 1});
       }
     }
-    
-    return analysisResult;
+    return analysisResult2;
   }
 }

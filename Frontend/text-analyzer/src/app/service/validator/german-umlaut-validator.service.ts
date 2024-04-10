@@ -10,7 +10,7 @@ export class GermanUmlautValidatorService implements CharacterValidator{
   characterTypeDefinition: string;
 
   constructor() {
-    this.characterType = "germanUmlaut";
+    this.characterType = "GERMAN_UMLAUT";
     this.characterTypeDefinition = "ÄÖÜ";
    }
 

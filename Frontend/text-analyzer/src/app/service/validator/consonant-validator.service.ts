@@ -10,7 +10,7 @@ export class ConsonantValidatorService implements CharacterValidator{
   characterTypeDefinition: string;
 
   constructor() {
-    this.characterType = "consonant";
+    this.characterType = "CONSONANT";
     this.characterTypeDefinition = "BCDFGHJKLMNPQRSTVWXYZ";
    }
 

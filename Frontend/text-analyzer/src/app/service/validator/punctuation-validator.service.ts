@@ -10,7 +10,7 @@ export class PunctuationValidatorService implements CharacterValidator{
   characterTypeDefinition: string;
 
   constructor() {
-    this.characterType = "punctuation";
+    this.characterType = "PUNCTUATION";
     this.characterTypeDefinition = ".,;:!?-()[]{}";
    }
 
