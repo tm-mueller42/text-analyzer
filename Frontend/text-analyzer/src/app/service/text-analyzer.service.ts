@@ -23,7 +23,9 @@ export class TextAnalyzerService {
         analysisResult.set(character, currentValue+1) 
       }
     }
-    console.log(analysisResult.get("A"));
+    for (const key of analysisResult.keys()) {
+      console.log("The character ", key, " occurs ", analysisResult.get(key), " times in this text.");
+    }
     return analysisResult;
   }
 }

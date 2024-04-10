@@ -26,8 +26,8 @@ export class ValidatorService {
     function getClassToken(className: string): InjectionToken<any> {
       return new InjectionToken<any>(className);
     }
-    const validator: CharacterValidator = this.validators.find(val => val.name === characterType) ??  new VowelValidatorService;
-    const name = validator.name;
+    const validator: CharacterValidator = this.validators.find(val => val.characterType === characterType) ??  new VowelValidatorService;
+    const name = validator.characterType;
     console.log(validator.constructor.name);
     const token = getClassToken(name);
     return validator;

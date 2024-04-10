@@ -6,14 +6,15 @@ import { CharacterValidator } from './character-validator';
 })
 export class PunctuationValidatorService implements CharacterValidator{
 
-  name : string;
+  characterType : string;
+  characterTypeDefinition: string;
 
   constructor() {
-    this.name = "punctuation";
+    this.characterType = "punctuation";
+    this.characterTypeDefinition = ".,;:!?-()[]{}";
    }
 
   validate(character: string) {
-    return true;
+    return this.characterTypeDefinition.includes(character);
   }
-   
-  }
+}

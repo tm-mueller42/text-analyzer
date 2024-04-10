@@ -6,14 +6,15 @@ import { CharacterValidator } from './character-validator';
 })
 export class GermanUmlautValidatorService implements CharacterValidator{
 
-  name : string;
+  characterType : string;
+  characterTypeDefinition: string;
 
   constructor() {
-    this.name = "germanUmlaut";
+    this.characterType = "germanUmlaut";
+    this.characterTypeDefinition = "ÄÖÜ";
    }
 
   validate(character: string) {
-    return true;
+    return this.characterTypeDefinition.includes(character);
   }
-   
-  }
+}

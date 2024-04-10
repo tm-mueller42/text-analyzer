@@ -6,14 +6,15 @@ import { CharacterValidator } from './character-validator';
 })
 export class VowelValidatorService implements CharacterValidator{
 
-  name : string;
+  characterType : string;
+  characterTypeDefinition: string;
 
   constructor() {
-    this.name = "vowel";
+    this.characterType = "vowel";
+    this.characterTypeDefinition = "AEIOU";
    }
 
   validate(character: string) {
-    return true;
+    return this.characterTypeDefinition.includes(character);
   }
-   
-  }
+}
