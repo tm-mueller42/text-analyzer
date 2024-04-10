@@ -4,7 +4,7 @@ import { CharacterValidator } from './character-validator';
 @Injectable({
   providedIn: 'root'
 })
-export class VowelValidatorService implements CharacterValidator{
+export class PunctuationValidatorService implements CharacterValidator{
 
   name : string;
 

@@ -1,4 +1,4 @@
 export interface CharacterValidator {
   name: string,
-  validate(character:string) : boolean 
+  validate(character:string) : boolean,
 }

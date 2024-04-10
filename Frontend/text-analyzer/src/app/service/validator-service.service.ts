@@ -1,15 +1,36 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, InjectionToken, Injector } from '@angular/core';
 import { VowelValidatorService } from './validator/vowel-validator.service';
+import { ConsonantValidatorService } from './validator/consonant-validator.service';
+import { PunctuationValidatorService } from './validator/punctuation-validator.service';
+import { GermanUmlautValidatorService } from './validator/german-umlaut-validator.service';
+import { CharacterValidator } from './validator/character-validator';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ValidatorService {
 
-  validator: VowelValidatorService = inject(VowelValidatorService)
+
+  validators: CharacterValidator[] = 
+  [
+    new VowelValidatorService,
+    new ConsonantValidatorService,
+    new PunctuationValidatorService,
+    new GermanUmlautValidatorService
+  ]
+
   constructor() { }
 
-  getValidator() {
-    return this.validator;
+
+  provideValidator(characterType: string) {
+    function getClassToken(className: string): InjectionToken<any> {
+      return new InjectionToken<any>(className);
+    }
+    const validator: CharacterValidator = this.validators.find(val => val.name === characterType) ??  new VowelValidatorService;
+    const name = validator.name;
+    console.log(validator.constructor.name);
+    const token = getClassToken(name);
+    return validator;
   }
 }
+                                                                                      

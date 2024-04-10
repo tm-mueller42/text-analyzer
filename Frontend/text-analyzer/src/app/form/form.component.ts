@@ -47,12 +47,13 @@ export class FormComponent {
 
   submitApplication() {
 
-    console.log(`Homes application received: 
+    /*console.log(`Homes application received: 
     Text: ${this.analysisForm.value.textInput ?? ''}, 
     offlineMode: ${this.analysisForm.value.offlineMode ?? false},
     Method: ${this.analysisForm.value.methodInput ?? ''}`);
-
-    
+    */
+    this.analyzer.characterType = "consonant";
+    this.analyzer.analyze(this.analysisForm.value.textInput ?? "", this.analysisForm.value.methodInput ?? "vowel");
   }
 
 }
