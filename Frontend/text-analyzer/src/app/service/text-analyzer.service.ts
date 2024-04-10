@@ -11,6 +11,8 @@ export class TextAnalyzerService {
   characterType: string = "consonant";
   validatorService: ValidatorService = inject(ValidatorService);
 
+  constructor() { }
+
   analyze(text: string, characterType: string) {
     this.characterType = characterType;
     const validator: CharacterValidator = this.validatorService.provideValidator(characterType);
@@ -23,9 +25,7 @@ export class TextAnalyzerService {
         analysisResult.set(character, currentValue+1) 
       }
     }
-    for (const key of analysisResult.keys()) {
-      console.log("The character ", key, " occurs ", analysisResult.get(key), " times in this text.");
-    }
+    
     return analysisResult;
   }
 }
