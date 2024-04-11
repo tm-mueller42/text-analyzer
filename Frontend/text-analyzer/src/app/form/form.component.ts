@@ -62,11 +62,11 @@ export class FormComponent {
 
     if (!this.analysisForm.value.offlineMode) {
       this.apiService.getAnalysisResults(analysisRequest).then((fetchedResults: Result[]) => {
-        this.analysisResults = fetchedResults ?? [];
+        this.analysisResults = fetchedResults.sort((n1,n2)=> n1.character > n2.character ? 1 : 0) ?? [];
       });
     }
     else if (this.analysisForm.value.offlineMode) {
-      this.analysisResults = this.analyzer.analyze(analysisRequest);
+      this.analysisResults = this.analyzer.analyze(analysisRequest).sort((n1,n2)=> n1.character > n2.character ? 1 : 0);
     }
   }
 
